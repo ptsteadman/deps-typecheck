@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "types": ["node"],
+    "strict": true,
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "baseUrl": ".",
+    "rootDir": ".",
+
+    "rootDirs": [
+      ".",
+
+      /*
+       * In order for Typescript to resolve relative references to the bazel-out folder,
+       * it is recommended that the base tsconfig contains a rootDirs section that
+       * includes all possible locations.
+       * https://bazelbuild.github.io/rules_nodejs/TypeScript.html#ts_project-1
+       */
+      "./bazel-out/host/bin",
+      "./bazel-out/darwin-fastbuild/bin",
+      "./bazel-out/k8-fastbuild/bin",
+      "./bazel-out/x64_windows-fastbuild/bin",
+      "./bazel-out/darwin-dbg/bin",
+      "./bazel-out/k8-dbg/bin",
+      "./bazel-out/x64_windows-dbg/bin"
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_project")
+load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+load("@io_bazel_rules_docker//container:image.bzl", "container_image")
+
+package(default_visibility = ["//visibility:public"])
+
+ts_project(
+    name = "lib",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = ["**/*.test.ts"],
+    ),
+    declaration = True,
+    tsconfig = "//app:tsconfig",
+    deps = [
+        "//app:lib",
+        "@npm//@types/node",
+    ],
+)
+
+nodejs_binary(
+    name = "server",
+    data = ["lib"],
+    entry_point = "index.ts",
+)
+
+nodejs_image(
+    name = "base_image",
+    binary = "server",
+    include_node_repo_args = False,
+    node_repository_name = "nodejs_linux_amd64",
+)
+
+container_image(
+    name = "image",
+    base = "base_image",
+    stamp = "@io_bazel_rules_docker//stamp:always",
+)
