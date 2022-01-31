@@ -1,15 +1,6 @@
-## Setup
+## Repro
 
-- `yarn install`
+This is a potential example in a change in deps behavior between `ts_library` and `ts_project`.
 
-## Usage
-
-- `yarn bazelisk build //...`
-
-## Error
-
-```
-ERROR: /home/flo/Documents/cannot-find-module/app/subapp/BUILD.bazel:8:11: Compiling TypeScript project //app/subapp:lib
-
-app/subapp/index.ts(1,19): error TS2307: Cannot find module '../num' or its corresponding type declarations.
-```
+The `//:test_ts_library` target builds without `@npm//@types/node` specified as a dep.
+The `//:test_ts_project` target fails to build unless `@npm//@types/node` is specified as a dep.
