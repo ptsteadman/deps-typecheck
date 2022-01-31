@@ -1,2 +1,3 @@
 import { PubSub } from "apollo-server";
-console.log(PubSub);
+
+const pubsub = new PubSub();
