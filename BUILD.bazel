@@ -4,5 +4,12 @@ package(default_visibility = ["//visibility:public"])
 
 ts_config(
     name = "tsconfig",
-    src = "tsconfig.lib.json",
+    src = "tsconfig.json",
+)
+
+exports_files(
+    [
+        "tsconfig.json",
+    ],
+    visibility = ["//visibility:public"],
 )

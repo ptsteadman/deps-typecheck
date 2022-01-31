@@ -8,20 +8,20 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # https://github.com/bazelbuild/rules_nodejs/releases
 http_archive(
     name = "build_bazel_rules_nodejs",
-    sha256 = "f690430f4d4cc403b5c90d0f0b21842183b56b732fff96cfe6555fe73189906a",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/5.0.1/rules_nodejs-5.0.1.tar.gz"],
+    sha256 = "4501158976b9da216295ac65d872b1be51e3eeb805273e68c516d2eb36ae1fbb",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/4.4.1/rules_nodejs-4.4.1.tar.gz"],
 )
 
-load("@build_bazel_rules_nodejs//:repositories.bzl", "build_bazel_rules_nodejs_dependencies")
+# load("@build_bazel_rules_nodejs//:repositories.bzl", "build_bazel_rules_nodejs_dependencies")
 
-build_bazel_rules_nodejs_dependencies()
+# build_bazel_rules_nodejs_dependencies()
 
-load("@rules_nodejs//nodejs:repositories.bzl", "nodejs_register_toolchains")
+# load("@rules_nodejs//nodejs:repositories.bzl", "nodejs_register_toolchains")
 
-nodejs_register_toolchains(
-    name = "nodejs",
-    node_version = "16.13.2",
-)
+# nodejs_register_toolchains(
+#     name = "nodejs",
+#     node_version = "16.13.2",
+# )
 
 load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
 
