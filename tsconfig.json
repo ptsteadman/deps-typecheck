@@ -8,7 +8,6 @@
     "declaration": true,
     "baseUrl": ".",
     "rootDir": ".",
-    "explainFiles": true,
     "rootDirs": [
       ".",
 

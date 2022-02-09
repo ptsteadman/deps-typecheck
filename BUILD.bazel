@@ -1,26 +1,52 @@
 load("@npm//@bazel/typescript:index.bzl", "ts_library", "ts_project")
+load("@build_bazel_rules_nodejs//:index.bzl", "js_library", "nodejs_binary")
+
+# js_library is used instead of ts_library or ts_project because
+# the typescript compiler doesn't need to be run directly on a type declaration file.
+# In fact, ts_project will fail to run on just a d.ts file as input.
+# js_library will wrap the typings file with providers so it can be consumed by other targets:
+# see: https://bazelbuild.github.io/rules_nodejs/Built-ins.html#outputs
+
+# js_library(
+#     name = "jaeger-client",
+#     srcs = [
+#         "index.d.ts",
+#     ],
+#     visibility = [
+#         "//src/typescript/clientapi:__subpackages__",
+#     ],
+#     deps = [
+#         "@npm//@types/express-serve-static-core",
+#         "@npm//@types/jaeger-client",
+#     ],
+# )
 
 package(default_visibility = ["//visibility:public"])
 
-# both of these build
-
-# FAILS TO BUILD, needs @npm//@types/node
-ts_project(
-    name = "test_ts_project",
-    srcs = ["test.ts"],
-    declaration = True,
-    tsconfig = "//:tsconfig.json",
+js_library(
+    name = "request_with_span",
+    srcs = ["requestWithSpan.d.ts"],
     deps = [
-        # "@npm//@types/node",
-        "@npm//apollo-server",
+        "@npm//opentracing",
     ],
 )
 
 # BUILDS SUCCESSFULLY
-ts_library(
-    name = "test_ts_library",
-    srcs = ["test.ts"],
+ts_project(
+    name = "test_server",
+    srcs = ["testServer.ts"],
+    declaration = True,
+    tsconfig = "//:tsconfig.json",
     deps = [
-        "@npm//apollo-server",
+        ":request_with_span",
+        "@npm//@types/express",
     ],
+)
+
+nodejs_binary(
+    name = "bin",
+    data = [
+        ":test_server",
+    ],
+    entry_point = ":testServer.ts",
 )
