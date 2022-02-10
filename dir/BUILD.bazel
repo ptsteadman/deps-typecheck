@@ -4,21 +4,24 @@ load("@npm//@bazel/typescript:index.bzl", "ts_library", "ts_project")
 package(default_visibility = ["//visibility:public"])
 
 js_library(
-    name = "request_with_span",
-    srcs = ["requestWithSpan.d.ts"],
-    deps = [
-        "@npm//opentracing",
-    ],
+    name = "request_with_foo",
+    srcs = ["requestWithFoo.d.ts"],
+)
+
+js_library(
+    name = "a",
+    srcs = ["a.d.ts"],
 )
 
 ts_project(
     name = "test_server",
-    srcs = ["testServer.ts"],
+    srcs = [
+        "testServer.ts",
+    ],
     declaration = True,
-    tsconfig = "//dir:tsconfig.json",
     deps = [
-        ":request_with_span",
-        "@npm//@sentry/node",
+        ":a",
+        ":request_with_foo",
         "@npm//@types/express",
         "@npm//@types/node",
     ],

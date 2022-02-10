@@ -1,7 +1,7 @@
 ## Repro
 
-This is a potential example in a change in deps behavior between `ts_library` and `ts_project`.
+This illustrates the failure of `ts_project` to import type declarations when tsconfig / package.json
+is in a subdirectory of the WORKSPACE root.
 
-The `//:test_ts_library` target builds without `@npm//@types/node` specified as a dep.
-
-The `//:test_ts_project` target fails to build unless `@npm//@types/node` is specified as a dep.
+`bazel build dir:test_server` fails as it cannot import either a simple string type delcaration wrapped
+with `js_library` or a global declaration merging of `express.request`.
