@@ -17,13 +17,13 @@
        * includes all possible locations.
        * https://bazelbuild.github.io/rules_nodejs/TypeScript.html#ts_project-1
        */
-      "./bazel-out/host/bin",
-      "./bazel-out/darwin-fastbuild/bin",
-      "./bazel-out/k8-fastbuild/bin",
-      "./bazel-out/x64_windows-fastbuild/bin",
-      "./bazel-out/darwin-dbg/bin",
-      "./bazel-out/k8-dbg/bin",
-      "./bazel-out/x64_windows-dbg/bin"
+      "./bazel-out/host/bin/dir",
+      "./bazel-out/darwin-fastbuild/bin/dir",
+      "./bazel-out/k8-fastbuild/bin/dir",
+      "./bazel-out/x64_windows-fastbuild/bin/dir",
+      "./bazel-out/darwin-dbg/bin/dir",
+      "./bazel-out/k8-dbg/bin/dir",
+      "./bazel-out/x64_windows-dbg/bin/dir"
     ]
   },
   "exclude": ["node_modules/"]

@@ -1,0 +1,33 @@
+load("@build_bazel_rules_nodejs//:index.bzl", "js_library", "nodejs_binary")
+load("@npm//@bazel/typescript:index.bzl", "ts_library", "ts_project")
+
+package(default_visibility = ["//visibility:public"])
+
+js_library(
+    name = "request_with_span",
+    srcs = ["requestWithSpan.d.ts"],
+    deps = [
+        "@npm//opentracing",
+    ],
+)
+
+ts_project(
+    name = "test_server",
+    srcs = ["testServer.ts"],
+    declaration = True,
+    tsconfig = "//dir:tsconfig.json",
+    deps = [
+        ":request_with_span",
+        "@npm//@sentry/node",
+        "@npm//@types/express",
+        "@npm//@types/node",
+    ],
+)
+
+nodejs_binary(
+    name = "bin",
+    data = [
+        ":test_server",
+    ],
+    entry_point = ":testServer.ts",
+)
