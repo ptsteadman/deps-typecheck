@@ -21,7 +21,7 @@ ts_project(
         "testServer.ts",
     ],
     declaration = True,
-    tsconfig = "//:tsconfig.json",
+    tsconfig = "//dir:tsconfig.json",
     deps = [
         ":a",
         ":request_with_foo",

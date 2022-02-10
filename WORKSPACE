@@ -1,6 +1,6 @@
 workspace(
     name = "repro",
-    managed_directories = {"@npm": ["node_modules"]},
+    managed_directories = {"@npm": ["dir/node_modules"]},
 )
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
@@ -28,8 +28,9 @@ load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
 yarn_install(
     name = "npm",
     exports_directories_only = False,
-    package_json = "//:package.json",
-    yarn_lock = "//:yarn.lock",
+    package_json = "//dir:package.json",
+    package_path = "./dir",  # doesn't seem to matter if this is set
+    yarn_lock = "//dir:yarn.lock",
 )
 
 # https://github.com/bazelbuild/rules_docker/releases
