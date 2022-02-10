@@ -5,3 +5,8 @@ is in a subdirectory of the WORKSPACE root.
 
 `bazel build dir:test_server` fails as it cannot import either a simple string type delcaration wrapped
 with `js_library` or a global declaration merging of `express.request`.
+
+```
+dir/testServer.ts(2,19): error TS2307: Cannot find module './a' or its corresponding type declarations.
+dir/testServer.ts(8,29): error TS2339: Property 'foo' does not exist on type 'Request<ParamsDictionary>'.
+```
