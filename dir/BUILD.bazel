@@ -10,6 +10,10 @@ js_library(
     srcs = ["requestWithFoo.d.ts"],
 )
 
+exports_files([
+    "requestWithFoo.d.ts",
+])
+
 js_library(
     name = "a",
     srcs = ["a.d.ts"],
@@ -19,12 +23,12 @@ ts_project(
     name = "test_server",
     srcs = [
         "testServer.ts",
+        "//dir:requestWithFoo.d.ts",
     ],
     declaration = True,
     tsconfig = "//dir:tsconfig.json",
     deps = [
         ":a",
-        ":request_with_foo",
         "@npm//@types/express",
         "@npm//@types/node",
     ],
